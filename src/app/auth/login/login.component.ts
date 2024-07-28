@@ -5,8 +5,6 @@ import { AuthModule } from '../auth.module';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,14 +18,18 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login() {
+  onSubmit() {
     this.authService.login(this.username, this.password).subscribe(
-      token => {
-        console.log('Logged in successfully', token);
-        this.router.navigate(['/task-list']);
+      response => {
+        console.log('Login successful', response);
+        this.authService.setToken(response.token);  // Stocker le token
+        console.log(localStorage.getItem('token'));
+        this.router.navigate(['/tasks/list']);
       },
       error => {
         console.error('Login failed', error);
+        console.log(localStorage.getItem('token'));
+        // Handle login error
       }
     );
   }

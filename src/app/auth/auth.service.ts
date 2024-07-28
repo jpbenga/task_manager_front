@@ -10,12 +10,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/auth/login`, { username, password }, { responseType: 'text' as 'json' }).pipe(
-      tap(token => {
-        this.setToken(token);
-      })
-    );
+  login(username: string, password: string): Observable<any> {
+    const credentials = { username, password };
+    return this.http.post(`${this.apiUrl}/auth/login`, credentials);
   }
 
   setToken(token: string): void {
@@ -27,6 +24,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    console.log('ok');
     return !!this.getToken();
   }
 }
