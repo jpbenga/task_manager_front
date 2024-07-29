@@ -11,12 +11,19 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
-    const credentials = { username, password };
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials);
+    return this.http.post<any>(`${this.apiUrl}/auth/login`, { username, password })
+      .pipe(
+        tap(response => {
+          if (response && response.jwt) {
+            localStorage.setItem('token', response.jwt);
+          }
+        })
+      );
   }
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
+    localStorage.setItem('isLoggedIn', 'true'); 
   }
 
   getToken(): string | null {
@@ -24,7 +31,11 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    console.log('ok');
-    return !!this.getToken();
+    return localStorage.getItem('isLoggedIn') === 'true';
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isLoggedIn');
   }
 }

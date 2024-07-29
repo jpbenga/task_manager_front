@@ -1,0 +1,9 @@
+<nav>
+    <ul>
+      <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/tasks/list">Tasks List</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/task/form">Task Form</a></li>
+      <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Logout</a></li>
+    </ul>
+  </nav>
+  

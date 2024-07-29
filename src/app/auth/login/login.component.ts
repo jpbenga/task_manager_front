@@ -19,18 +19,15 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    this.authService.login(this.username, this.password).subscribe(
-      response => {
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
         console.log('Login successful', response);
-        this.authService.setToken(response.token);  // Stocker le token
-        console.log(localStorage.getItem('token'));
-        this.router.navigate(['/tasks/list']);
+        this.router.navigate(['tasks/list']);
       },
-      error => {
+      error: (error) => {
         console.error('Login failed', error);
-        console.log(localStorage.getItem('token'));
-        // Handle login error
+        this.router.navigate(['login']);
       }
-    );
+    });
   }
 }
