@@ -1,9 +1,11 @@
 <nav>
-    <ul>
-      <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
-      <li *ngIf="isLoggedIn"><a routerLink="/tasks/list">Tasks List</a></li>
-      <li *ngIf="isLoggedIn"><a routerLink="/task/form">Task Form</a></li>
-      <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Logout</a></li>
-    </ul>
-  </nav>
+  <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
+    <a routerLink="/tasks/list">Liste des tâches</a>
+    <a routerLink="/tasks/form">Créer une tâche</a>
+    <a (click)="logout()">Déconnexion</a>
+  </ng-container>
+  <ng-template #loggedOut>
+    <a routerLink="/register">S'inscrire</a>
+  </ng-template>
+</nav>
   

@@ -15,7 +15,7 @@ export class NavbarComponent {
     return this.authService.isLoggedIn();
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   logout(): void {
     this.authService.logout();

@@ -15,13 +15,13 @@ export class AuthService {
       .pipe(
         tap(response => {
           if (response && response.jwt) {
-            localStorage.setItem('token', response.jwt);
+            this.setToken(response.jwt);
           }
         })
       );
   }
 
-  setToken(token: string): void {
+  setToken(token: any): void {
     localStorage.setItem('token', token);
     localStorage.setItem('isLoggedIn', 'true'); 
   }
@@ -31,7 +31,9 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return localStorage.getItem('isLoggedIn') === 'true';
+    //console.log(localStorage.getItem('isLoggedIn'));
+    return localStorage.getItem('isLoggedIn') === 'true' && !!this.getToken();
+
   }
 
   logout(): void {

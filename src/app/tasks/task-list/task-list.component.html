@@ -1,1 +1,22 @@
-<p>task-list works!</p>
+<div class="task-list-container">
+    <button mat-raised-button color="primary" (click)="openCreateTaskDialog()">Create New Task</button>
+  
+    <mat-grid-list cols="3" rowHeight="350px">
+      <mat-grid-tile *ngFor="let task of tasks">
+        <mat-card class="task-card">
+          <mat-card-header>
+            <mat-card-title>{{task.title}}</mat-card-title>
+            <mat-card-subtitle>Due: {{task.dueDate | date}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{task.description}}</p>
+            <p>Status: {{task.status}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" (click)="openEditTaskDialog(task)">MODIFIER</button>
+            <button mat-button color="warn" (click)="deleteTask(task.id)">SUPPRIMER</button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
