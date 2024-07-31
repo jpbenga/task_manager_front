@@ -1,11 +1,6 @@
-import { DateTime } from "luxon";
+import { Task } from './Task';
 
 export interface DialogData {
-    task: {
-      title: string;
-      description: string;
-      dueDate: DateTime;
-      status: string;
-    };
-    isNew: boolean;
-  }
+  task: Task;
+  isNew: boolean;
+}

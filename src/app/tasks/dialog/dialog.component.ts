@@ -4,19 +4,22 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/materia
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { Task } from '../../models/Task';
 import { DialogData } from '../../models/DialogData';
-import { DateTime } from 'luxon';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { TasksService } from '../services/tasks.service';
 
 @Component({
   selector: 'app-dialog',
   standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatInputModule,
     MatDatepickerModule,
     FormsModule
         ],
@@ -26,24 +29,23 @@ import { DateTime } from 'luxon';
 export class DialogComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {
-    // Ensure dueDate is a DateTime object
-    if (!(this.data.task.dueDate instanceof DateTime)) {
-      this.data.task.dueDate = DateTime.fromISO(this.data.task.dueDate as unknown as string);
-    }
-  }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private tasksService: TasksService
+  ) {}
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
   onSave(): void {
-    // Convert DateTime to ISO string before sending to backend
-    const taskToSave = {
-      ...this.data.task,
-      dueDate: this.data.task.dueDate.toISO()
-    };
-    this.dialogRef.close(taskToSave);
+    this.tasksService.updateTask(this.data.task.id, this.data.task).subscribe({
+      next: (updatedTask) => {
+        console.log('Task updated:', updatedTask);
+        this.dialogRef.close(updatedTask);
+      },
+      error: (error) => {
+        console.error('Error updating task:', error);
+      }
+    });
   }
 }
