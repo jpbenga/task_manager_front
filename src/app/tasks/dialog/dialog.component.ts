@@ -38,13 +38,43 @@ export class DialogComponent {
   }
 
   onSave(): void {
-    this.tasksService.updateTask(this.data.task.id, this.data.task).subscribe({
+    console.log('Task to save:', this.data.task);
+    console.log('Is new task:', this.data.isNew);
+
+    if (this.data.isNew) {
+      this.createTask();
+    } else if (this.data.task.id) {
+      this.updateTask();
+    } else {
+      console.error('Invalid state: not new but no ID');
+    }
+  }
+
+  private createTask(): void {
+    this.tasksService.createTask(this.data.task).subscribe({
+      next: (createdTask) => {
+        console.log('Task created:', createdTask);
+        this.dialogRef.close(createdTask);
+      },
+      error: (error) => {
+        console.error('Error creating task:', error);
+        this.handleError(error);
+      }
+    });
+  }
+  handleError(error: any) {
+    throw new Error('Method not implemented.');
+  }
+
+  private updateTask(): void {
+    this.tasksService.updateTask(this.data.task.id!, this.data.task).subscribe({
       next: (updatedTask) => {
         console.log('Task updated:', updatedTask);
         this.dialogRef.close(updatedTask);
       },
       error: (error) => {
         console.error('Error updating task:', error);
+        this.handleError(error);
       }
     });
   }

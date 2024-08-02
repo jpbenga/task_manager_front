@@ -5,10 +5,11 @@ import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 import { TaskFormComponent } from './tasks/task-form/task-form.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { authGuard } from './auth/auth.guard';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'register', component: UserRegistrationComponent  },
     {
       path: 'tasks',
       canActivate: [authGuard],
