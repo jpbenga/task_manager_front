@@ -6,6 +6,15 @@ import { UserService } from './services/UserService';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+TestBed.configureTestingModule({
+  imports: [
+    // ... autres imports
+    NoopAnimationsModule
+  ],
+  // ... autres configurations
+});
 
 describe('UserRegistrationComponent', () => {
   let component: UserRegistrationComponent;
@@ -21,7 +30,8 @@ describe('UserRegistrationComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        NoopAnimationsModule
       ],
       providers: [
         { provide: UserService, useValue: spy }
