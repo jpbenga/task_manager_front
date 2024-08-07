@@ -3,6 +3,9 @@ import { UserRegistrationComponent } from './user-registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { UserService } from './services/UserService';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('UserRegistrationComponent', () => {
   let component: UserRegistrationComponent;
@@ -13,8 +16,13 @@ describe('UserRegistrationComponent', () => {
     const spy = jasmine.createSpyObj('UserService', ['registerUser']);
 
     await TestBed.configureTestingModule({
-      declarations: [ UserRegistrationComponent ],
-      imports: [ ReactiveFormsModule ],
+      imports: [ 
+        UserRegistrationComponent, 
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatSnackBarModule
+      ],
       providers: [
         { provide: UserService, useValue: spy }
       ]
@@ -29,12 +37,10 @@ describe('UserRegistrationComponent', () => {
     fixture.detectChanges();
   });
 
-  // Test généré automatiquement (à conserver)
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // Vos tests personnalisés
   describe('Form Validation', () => {
     it('should invalidate the form when empty', () => {
       expect(component.registrationForm.valid).toBeFalsy();
@@ -67,7 +73,6 @@ describe('UserRegistrationComponent', () => {
         password: 'password123'
       });
       component.onSubmit();
-      // Add expectations for error handling
     });
   });
 });
