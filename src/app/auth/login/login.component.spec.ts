@@ -37,7 +37,7 @@ describe('TaskService', () => {
       // Vous pouvez ajouter d'autres assertions ici
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/tasks`);
+    const req = httpMock.expectOne(`${service['apiUrl']}`);
     expect(req.request.method).toBe('POST');
     req.flush(mockTask);
   });
