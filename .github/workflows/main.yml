@@ -9,13 +9,12 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'  # Utiliser la dernière version LTS de Node.js
+        node-version: '20'
     - name: Cache node modules
       uses: actions/cache@v3
       env:
@@ -35,7 +34,6 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -44,4 +42,22 @@ jobs:
         node-version: '20'
     - run: npm ci
     - run: npm run build --if-present
-    # Ajoutez ici les étapes pour déployer votre application si nécessaire
+
+  build-and-push-docker:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/task-manager-front:latest
