@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class UserRegistrationComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
