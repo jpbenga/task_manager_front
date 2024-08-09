@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private router: Router) { }
 
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, { username, password })
@@ -16,6 +17,8 @@ export class AuthService {
         tap(response => {
           if (response && response.jwt) {
             this.setToken(response.jwt);
+            window.location.href = '/tasks/list';
+            this.router.navigate(['/tasks/list']);
           }
         })
       );

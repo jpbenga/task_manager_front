@@ -6,11 +6,21 @@ import { MatCardModule } from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatGridListModule],
+  imports: [
+    CommonModule,
+    MatCardModule, 
+    MatGridListModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -39,7 +49,7 @@ export class TaskListComponent implements OnInit {
 
   openCreateTaskDialog() {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
+      width: '500px',
       data: {task: {}, isNew: true}
     });
 
@@ -59,7 +69,7 @@ export class TaskListComponent implements OnInit {
 
   openEditTaskDialog(task: Task) {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
+      width: '500px',
       data: {task: {...task}, isNew: false}
     });
 

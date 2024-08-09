@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DialogData } from '../../models/DialogData';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { TasksService } from '../services/tasks.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dialog',
@@ -21,7 +22,8 @@ import { TasksService } from '../services/tasks.service';
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
         ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css'

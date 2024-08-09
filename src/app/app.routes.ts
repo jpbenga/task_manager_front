@@ -19,6 +19,6 @@ export const routes: Routes = [
         { path: 'form', component: TaskFormComponent },
       ]
     },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/tasks', pathMatch: 'full' },
     { path: '**', redirectTo: '/login' } // Redirection pour les routes non trouvées
   ];

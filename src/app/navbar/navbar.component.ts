@@ -3,11 +3,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

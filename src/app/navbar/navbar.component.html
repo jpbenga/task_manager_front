@@ -1,12 +1,7 @@
-<nav>
-  <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
-    <a routerLink="/tasks/list">Liste des tâches</a>
-    <a routerLink="/tasks/form">Créer une tâche</a>
-    <a (click)="logout()">Déconnexion</a>
-  </ng-container>
-  <ng-template #loggedOut>
-    <a routerLink="/register">S'inscrire</a>
-    <a routerLink="/login">Se connecter</a>
-  </ng-template>
-</nav>
-  
+<ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
+  <button mat-button (click)="logout()">Déconnexion</button>
+</ng-container>
+<ng-template #loggedOut>
+  <button mat-button routerLink="/register">S'inscrire</button>
+  <button mat-button routerLink="/login">Se connecter</button>
+</ng-template>

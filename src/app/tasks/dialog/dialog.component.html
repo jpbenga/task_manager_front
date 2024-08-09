@@ -1,28 +1,34 @@
-<h2 mat-dialog-title>{{data.isNew ? 'Create' : 'Edit'}} Task</h2>
+<h2 mat-dialog-title>{{data.isNew ? 'Créer' : 'Modifier'}} une tâche</h2>
 <mat-dialog-content>
   <form #taskForm="ngForm">
-    <mat-form-field>
-      <input matInput [(ngModel)]="data.task.title" name="title" placeholder="Title" required>
+    <mat-form-field appearance="outline">
+      <mat-label>Titre</mat-label>
+      <input matInput [(ngModel)]="data.task.title" name="title" required>
     </mat-form-field>
-    <mat-form-field>
-      <textarea matInput [(ngModel)]="data.task.description" name="description" placeholder="Description"></textarea>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="data.task.description" name="description" rows="3"></textarea>
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Date d'échéance</mat-label>
       <input matInput [matDatepicker]="picker" [(ngModel)]="data.task.dueDate" name="dueDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
-      <mat-select [(ngModel)]="data.task.status" name="status" placeholder="Status" required>
-        <mat-option value="Pending">Pending</mat-option>
-        <mat-option value="In Progress">In Progress</mat-option>
-        <mat-option value="Completed">Completed</mat-option>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Statut</mat-label>
+      <mat-select [(ngModel)]="data.task.status" name="status" required>
+        <mat-option value="TODO">À faire</mat-option>
+        <mat-option value="IN_PROGRESS">En cours</mat-option>
+        <mat-option value="DONE">Terminé</mat-option>
       </mat-select>
     </mat-form-field>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onSave()" [disabled]="!taskForm.form.valid">Save</button>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn"(click)="onCancel()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!taskForm.form.valid">Valider</button>
 </mat-dialog-actions>

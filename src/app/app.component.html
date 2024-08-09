@@ -1,3 +1,13 @@
-<app-navbar></app-navbar>
-<h1>{{ title }}</h1>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <span>{{ title }}</span>
+        <span class="spacer"></span>
+        <app-navbar></app-navbar>
+      </mat-toolbar>
+  
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
